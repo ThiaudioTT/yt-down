@@ -17,8 +17,15 @@ route.get('/', (req: Request, res: Response) => {
 })
 
 route.get('/video', (req: Request, res: Response) => {
+  const url: string = req.query['url'] as string;
+  if (!url) {
+    res.status(400).json({ message: 'url is required' })
+    return;
+  }
 
-  youtubeDl('https://youtu.be/ukg5HMS-kfU').then(output => {
+  // todo validate url
+
+  youtubeDl(url).then(output => {
     console.log(output)
   })
 })
