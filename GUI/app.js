@@ -10,7 +10,10 @@ const { app, BrowserWindow } = require('electron')
 const createWindow = () => {
   const win = new BrowserWindow({
     width: 800,
-    height: 600
+    height: 600,
+    webPreferences: {
+      nodeIntegration: true, // Enable Node.js integration
+    },
   })
 
   win.loadFile('./dist/yt-down/index.html')
@@ -19,6 +22,8 @@ const createWindow = () => {
 
 app.whenReady().then(() => {
   createWindow()
+
+  const express = require('./../server/dist/server/yt-server.api')
 
 })
 
