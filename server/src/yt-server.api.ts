@@ -3,7 +3,7 @@ import express from 'express'
 import youtubeDl from 'youtube-dl-exec'
 import { Router, Request, Response } from 'express';
 
-const port = 3333;
+const port = 6786; // todo: get from env or make it dinamic
 const app = express();
 
 app.use(express.json())
@@ -33,6 +33,6 @@ route.get('/video', (req: Request, res: Response) => {
 app.use(route)
 
 // *- Server -*
-app.listen(3333, () => 'server running on port 3333')
+app.listen(port, () => 'server running on port: ' + port)
 console.log("The server is running on port: ")
 console.log("http://localhost:" + port)
