@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { YtServiceService } from 'src/app/service/yt-service.service';
 
 @Component({
   selector: 'app-videoinput',
@@ -10,7 +11,7 @@ export class VideoinputComponent {
 
   videoForm: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private ytService: YtServiceService) {
     this.videoForm = this.fb.group({
       url: ['']
     });
@@ -19,6 +20,10 @@ export class VideoinputComponent {
 
   onSubmit(): void {
     console.log(this.videoForm.value);
+
+    this.ytService.getVideo(this.videoForm.value.url).subscribe((data) => {
+      console.log(data);
+    });
   }
 
 }
