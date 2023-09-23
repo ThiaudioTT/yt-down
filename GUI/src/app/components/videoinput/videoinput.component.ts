@@ -23,6 +23,17 @@ export class VideoinputComponent {
 
     this.ytService.getVideo(this.videoForm.value.url).subscribe((data) => {
       console.log(data);
+
+      // Assuming data is a Blob and you want to specify the file name
+      const blob = data;
+      const fileName = 'video.mp4'; // Replace with the desired file name
+
+      const url = URL.createObjectURL(blob);
+      const anchor = document.createElement('a');
+      anchor.href = url;
+      anchor.download = fileName;
+      anchor.click();
+      URL.revokeObjectURL(url);
     });
   }
 

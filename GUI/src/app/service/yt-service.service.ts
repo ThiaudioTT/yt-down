@@ -13,6 +13,7 @@ export class YtServiceService {
     // todo: validate url
     return this.http.get(`http://localhost:${this.servicePort}/video`, {
       params: { url: url },
+      responseType: 'blob',
     });
   }
 }
