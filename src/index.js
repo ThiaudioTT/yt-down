@@ -50,6 +50,25 @@ app.on('activate', () => {
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and import them here.
 
+// import { ytdown } from './ytdown.js'; // I CAN'T DO THIS
+// const ytdown = require('./ytdown.js')
+
 ipcMain.on('video:download', (e, options) => {
-  console.log(options);
+  console.log("Caming from index.js", options)
+
+  ytdown(options)
 })
+
+
+const ytdl = require('youtube-dl-exec')
+async function ytdown(url) {
+  console.log("Inside download func:", url)
+
+  await ytdl(url).then(
+    output => {
+      console.log("VIDEO: ", output)
+    }
+  )
+
+  console.log("I should appear after the video is downloaded")
+}
