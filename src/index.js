@@ -1,5 +1,6 @@
 const { app, BrowserWindow, ipcMain } = require('electron');
-const path = require('path');
+const Path = require('path');
+const Os = require('os');
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
@@ -12,14 +13,14 @@ const createWindow = () => {
     width: 800,
     height: 600,
     webPreferences: {
-      preload: path.join(__dirname, 'preload.js'),
+      preload: Path.join(__dirname, 'preload.js'),
       nodeIntegration: true, 
       contextIsolation: true,
     },
   });
 
   // and load the index.html of the app.
-  mainWindow.loadFile(path.join(__dirname, '/renderer/index.html'));
+  mainWindow.loadFile(Path.join(__dirname, '/renderer/index.html'));
 
   // Open the DevTools.
   mainWindow.webContents.openDevTools();
@@ -64,7 +65,9 @@ const ytdl = require('youtube-dl-exec')
 async function ytdown(url) {
   console.log("Inside download func:", url)
 
-  await ytdl(url).then(
+  const downloadPath = Path.join( Os.homedir(), '/Downloads/yt-down' )
+
+  await ytdl(url, {path: downloadPath}).then(
     output => {
       console.log("VIDEO: ", output)
     }
